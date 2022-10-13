@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg4"
     tools:context=".SignInActivity">
 
     <TextView
@@ -52,12 +51,12 @@
             android:layout_height="55dp"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
-            android:textColor="@color/black"
             android:layout_marginRight="10dp"
             android:layout_weight="1"
             android:background="@drawable/input_text_field_styling"
             android:hint="Password"
             android:paddingLeft="10dp"
+            android:textColor="@color/black"
             android:textColorHint="@color/black" />
 
         <Button
@@ -65,8 +64,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
             android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
             android:background="@drawable/main_btn_styling"
             android:text="Sign In"
             android:textAllCaps="false"
