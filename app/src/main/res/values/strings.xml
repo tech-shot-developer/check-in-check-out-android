@@ -5,8 +5,11 @@
     <string name="sign_in">Sign In</string>
     <string name="sign_up_activity">Sign Up</string>
     <string name="sign_in_activity">Sign In Activity</string>
-    <string name="first_name">First Name</string>
-    <string name="last_name">Last Name</string>
+    <string-array name="hostel_name">
+        <item>Chitagni</item>
+        <item>Bhutagni</item>
+        <item>Jhatagni</item>
+    </string-array>
     <!--for sign in-->
     <string name="go_to_sign_in">Already have an account? Sign In</string>
     <!--for sign up-->
