@@ -1,7 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.check_in_check_out_android">
+    package="com.example.check_in_check_out_android"
+    tools:ignore="ExtraText">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+    Utils.getMACAddress("wlan0");
+    Utils.getMACAddress("eth0");
+    Utils.getIPAddress(true); // IPv4
+    Utils.getIPAddress(false); // IPv6
 
     <application
         android:allowBackup="true"
@@ -14,21 +24,21 @@
         android:theme="@style/Theme.Checkincheckoutandroid"
         tools:targetApi="31">
         <activity
-            android:name=".SignUpActivity"
-            android:exported="true"></activity>
+            android:name=".view.SignUpActivity"
+            android:exported="true" />
         <activity
-            android:name=".SignInActivity"
-            android:exported="true"></activity>
-            <activity
-                android:name=".MainActivity"
-                android:exported="true">
+            android:name=".view.SignInActivity"
+            android:exported="true" />
+        <activity
+            android:name=".view.MainActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 
-            </activity>
+        </activity>
     </application>
 
 </manifest>
