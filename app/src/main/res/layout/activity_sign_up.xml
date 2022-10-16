@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="10dp"
-    tools:context=".SignUpActivity">
+    tools:context=".view.SignUpActivity">
 
     <TextView
         android:id="@+id/textView"
@@ -42,11 +42,11 @@
             android:textColor="@color/black"
             android:textColorHint="@color/black" />
 
-
         <EditText
             android:id="@+id/email"
             android:layout_width="match_parent"
             android:layout_height="55dp"
+            android:layout_marginTop="10dp"
             android:layout_marginRight="2dp"
             android:layout_weight="1"
             android:background="@drawable/input_text_field_styling"
@@ -59,26 +59,25 @@
             android:id="@+id/roll_num"
             android:layout_width="match_parent"
             android:layout_height="55dp"
-            android:textColor="@color/black"
             android:layout_marginTop="10dp"
             android:layout_weight="1"
             android:background="@drawable/input_text_field_styling"
             android:hint="Roll Number"
+            android:inputType="number"
             android:paddingLeft="10dp"
-            android:textColorHint="@color/black"
-            android:inputType="number"/>
-        
+            android:textColor="@color/black"
+            android:textColorHint="@color/black" />
+
         <Spinner
+            android:id="@+id/hostel_name_spinner"
             android:layout_width="match_parent"
             android:layout_height="55dp"
             android:layout_marginTop="10dp"
             android:layout_weight="1"
-            android:textColor="@color/black"
-            android:paddingLeft="10dp"
-            android:id="@+id/hostel_name_spinner"
-            android:entries="@array/hostel_name"
             android:background="@drawable/input_text_field_styling"
-            />
+            android:entries="@array/hostel_name"
+            android:paddingLeft="10dp"
+            android:textColor="@color/black" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -89,7 +88,6 @@
             <EditText
                 android:id="@+id/room_num"
                 android:layout_width="0dp"
-                android:textColor="@color/black"
                 android:layout_height="55dp"
                 android:layout_marginRight="2dp"
                 android:layout_weight="1"
@@ -97,6 +95,7 @@
                 android:hint="Room Number"
                 android:inputType="number"
                 android:paddingLeft="10dp"
+                android:textColor="@color/black"
                 android:textColorHint="@color/black" />
 
             <EditText
@@ -105,11 +104,11 @@
                 android:layout_height="55dp"
                 android:layout_marginLeft="2dp"
                 android:layout_weight="1"
-                android:textColor="@color/black"
                 android:background="@drawable/input_text_field_styling"
                 android:hint="Phone Number"
                 android:inputType="number"
                 android:paddingLeft="10dp"
+                android:textColor="@color/black"
                 android:textColorHint="@color/black" />
 
         </LinearLayout>

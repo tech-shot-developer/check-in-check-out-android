@@ -6,6 +6,10 @@ plugins {
 android {
     compileSdk 33
 
+    buildFeatures {
+        viewBinding true
+    }
+
     defaultConfig {
         applicationId "com.example.check_in_check_out_android"
         minSdk 21
