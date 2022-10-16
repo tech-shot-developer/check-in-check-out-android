@@ -24,6 +24,13 @@
         android:theme="@style/Theme.Checkincheckoutandroid"
         tools:targetApi="31">
         <activity
+            android:name=".view.Profile"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".view.SignUpActivity"
             android:exported="true" />
         <activity
@@ -37,7 +44,6 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
     </application>
 
