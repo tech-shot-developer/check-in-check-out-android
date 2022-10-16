@@ -32,10 +32,11 @@
         android:id="@+id/profile_rollnumber"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="20dp"
         android:text="000000"
-        app:layout_constraintTop_toBottomOf="@+id/profile_name"
-        tools:layout_editor_absoluteX="140dp" />
+        app:layout_constraintEnd_toStartOf="@+id/guideline_right"
+        app:layout_constraintStart_toStartOf="@+id/guideline_left"
+        app:layout_constraintTop_toTopOf="@+id/guideline3" />
 
     <TextView
         android:id="@+id/profile_branch"
@@ -43,8 +44,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="Branch"
-        app:layout_constraintTop_toBottomOf="@+id/profile_rollnumber"
-        tools:layout_editor_absoluteX="140dp" />
+        app:layout_constraintEnd_toStartOf="@+id/guideline_right"
+        app:layout_constraintStart_toStartOf="@+id/guideline_left"
+        app:layout_constraintTop_toBottomOf="@+id/profile_rollnumber" />
 
     <TextView
         android:id="@+id/profile_year"
@@ -52,8 +54,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="X Year"
-        app:layout_constraintTop_toBottomOf="@+id/profile_branch"
-        tools:layout_editor_absoluteX="140dp" />
+        app:layout_constraintEnd_toStartOf="@+id/guideline_right"
+        app:layout_constraintStart_toStartOf="@+id/guideline_left"
+        app:layout_constraintTop_toBottomOf="@+id/profile_branch" />
 
     <TextView
         android:id="@+id/profile_contact"
@@ -61,8 +64,10 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="0000000000"
-        app:layout_constraintTop_toBottomOf="@+id/profile_year"
-        tools:layout_editor_absoluteX="140dp" />
+        app:layout_constraintEnd_toStartOf="@+id/guideline_right"
+        app:layout_constraintHorizontal_bias="0.651"
+        app:layout_constraintStart_toStartOf="@+id/guideline_left"
+        app:layout_constraintTop_toBottomOf="@+id/profile_year" />
 
     <TextView
         android:id="@+id/profile_hostel"
@@ -70,8 +75,10 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="HostelName"
-        app:layout_constraintTop_toBottomOf="@+id/profile_contact"
-        tools:layout_editor_absoluteX="140dp" />
+        app:layout_constraintEnd_toStartOf="@+id/guideline_right"
+        app:layout_constraintHorizontal_bias="0.626"
+        app:layout_constraintStart_toStartOf="@+id/guideline_left"
+        app:layout_constraintTop_toBottomOf="@+id/profile_contact" />
 
     <TextView
         android:id="@+id/profile_room"
@@ -79,8 +86,10 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="000"
-        app:layout_constraintTop_toBottomOf="@+id/profile_hostel"
-        tools:layout_editor_absoluteX="140dp" />
+        app:layout_constraintEnd_toStartOf="@+id/guideline_right"
+        app:layout_constraintHorizontal_bias="0.457"
+        app:layout_constraintStart_toStartOf="@+id/guideline_left"
+        app:layout_constraintTop_toBottomOf="@+id/profile_hostel" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_left"
@@ -100,65 +109,83 @@
         android:id="@+id/icon_rollnumber"
         android:layout_width="19dp"
         android:layout_height="19dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toStartOf="@+id/profile_rollnumber"
-        app:layout_constraintStart_toStartOf="@+id/guideline2"
-        app:srcCompat="@drawable/ic_baseline_numbers_24"
-        tools:layout_editor_absoluteY="262dp" />
-
-    <ImageView
-        android:id="@+id/icon_branch"
-        android:layout_width="19dp"
-        android:layout_height="19dp"
-        app:layout_constraintEnd_toStartOf="@+id/profile_branch"
-        app:layout_constraintStart_toStartOf="@+id/guideline2"
-        app:srcCompat="@drawable/ic_baseline_collections_bookmark_24"
-        tools:layout_editor_absoluteY="298dp" />
+        app:layout_constraintStart_toStartOf="@+id/guideline_left"
+        app:layout_constraintTop_toTopOf="@+id/guideline3"
+        app:srcCompat="@drawable/ic_baseline_numbers_24" />
 
     <ImageView
         android:id="@+id/icon_year"
         android:layout_width="19dp"
         android:layout_height="19dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toStartOf="@+id/profile_year"
-        app:layout_constraintStart_toStartOf="@+id/guideline2"
-        app:srcCompat="@drawable/ic_baseline_library_books_24"
-        tools:layout_editor_absoluteY="333dp" />
+        app:layout_constraintStart_toStartOf="@+id/guideline_left"
+        app:layout_constraintTop_toBottomOf="@+id/icon_branch"
+        app:srcCompat="@drawable/ic_baseline_library_books_24" />
 
     <ImageView
         android:id="@+id/icon_contact"
         android:layout_width="19dp"
         android:layout_height="19dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toStartOf="@+id/profile_contact"
-        app:layout_constraintStart_toStartOf="@+id/guideline2"
-        app:srcCompat="@drawable/ic_baseline_call_24"
-        tools:layout_editor_absoluteY="369dp" />
+        app:layout_constraintStart_toStartOf="@+id/guideline_left"
+        app:layout_constraintTop_toBottomOf="@+id/icon_year"
+        app:srcCompat="@drawable/ic_baseline_call_24" />
 
     <ImageView
         android:id="@+id/icon_hostel"
         android:layout_width="19dp"
         android:layout_height="19dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toStartOf="@+id/profile_hostel"
-        app:layout_constraintStart_toStartOf="@+id/guideline2"
-        app:srcCompat="@drawable/ic_baseline_home_24"
-        tools:layout_editor_absoluteY="404dp" />
+        app:layout_constraintStart_toStartOf="@+id/guideline_left"
+        app:layout_constraintTop_toBottomOf="@+id/icon_contact"
+        app:srcCompat="@drawable/ic_baseline_home_24" />
 
     <ImageView
         android:id="@+id/icon_room"
         android:layout_width="19dp"
         android:layout_height="19dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toStartOf="@+id/profile_room"
-        app:layout_constraintStart_toStartOf="@+id/guideline2"
-        app:srcCompat="@drawable/ic_baseline_bedroom_child_24"
-        tools:layout_editor_absoluteY="440dp" />
+        app:layout_constraintStart_toStartOf="@+id/guideline_left"
+        app:layout_constraintTop_toBottomOf="@+id/icon_hostel"
+        app:srcCompat="@drawable/ic_baseline_bedroom_child_24" />
+
+    <ImageView
+        android:id="@+id/icon_branch"
+        android:layout_width="19dp"
+        android:layout_height="19dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toStartOf="@+id/profile_branch"
+        app:layout_constraintStart_toStartOf="@+id/guideline_left"
+        app:layout_constraintTop_toBottomOf="@+id/icon_rollnumber"
+        app:srcCompat="@drawable/ic_baseline_collections_bookmark_24" />
 
     <Button
         android:id="@+id/button_edit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="196dp"
         android:text="Request Edit"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="478dp" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/profile_recent_login"
@@ -191,5 +218,12 @@
         app:layout_constraintStart_toStartOf="@+id/guideline_left"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.935" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="151dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
