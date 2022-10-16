@@ -1,11 +1,11 @@
-package com.example.check_in_check_out_android
+package com.example.check_in_check_out_android.view
 
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
+import com.example.check_in_check_out_android.R
 
 class MainActivity : AppCompatActivity() {
 
