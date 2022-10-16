@@ -24,22 +24,13 @@
         android:theme="@style/Theme.Checkincheckoutandroid"
         tools:targetApi="31">
         <activity
-<<<<<<< HEAD
-            android:name=".Profile"
+            android:name=".view.Profile"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".SignUpActivity"
-            android:exported="true" />
-        <activity
-            android:name=".SignInActivity"
-            android:exported="true" />
-        <activity
-            android:name=".MainActivity"
-=======
             android:name=".view.SignUpActivity"
             android:exported="true" />
         <activity
@@ -47,17 +38,12 @@
             android:exported="true" />
         <activity
             android:name=".view.MainActivity"
->>>>>>> 00e3d97e22b40e44a68b9844e4b7175a6e9ead4d
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-<<<<<<< HEAD
-=======
-
->>>>>>> 00e3d97e22b40e44a68b9844e4b7175a6e9ead4d
         </activity>
     </application>
 
