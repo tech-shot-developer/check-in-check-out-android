@@ -2,9 +2,18 @@ package com.example.check_in_check_out_android.view
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.check_in_check_out_android.api.RetrofitHelper
 import com.example.check_in_check_out_android.databinding.ActivitySignUpBinding
+import com.example.check_in_check_out_android.model.Model
+import org.json.JSONException
+import org.json.JSONObject
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class SignUpActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySignUpBinding
@@ -20,12 +29,48 @@ class SignUpActivity : AppCompatActivity() {
     }
 
     private fun processFormField() {
-        if (!validateUserName() || !validateRollNumber() || !validateEmail() || !validateRoomNumber() || !validatePhoneNumber()) {
+        if (!validateUserName() || !validateRollNumber() || !validateRoomNumber() || !validatePhoneNumber()) {
             return
-        } // end of check for errors
+        }
 
-        // work to do with api
+        // progress bar visible
+        binding.pb.visibility = View.VISIBLE
+
+        try {
+            val jsonObject = JSONObject()
+            jsonObject.put("name", binding.userName.text.toString())
+            jsonObject.put("rollNo", binding.rollNum.text.toString())
+            jsonObject.put("phone", binding.phoneNum.text.toString())
+            jsonObject.put("hostelName", binding.hostelNameSpinner.selectedItem.toString())
+            jsonObject.put("roomNumber", binding.roomNum.text.toString().toInt())
+
+            val retrofit = RetrofitHelper()
+            retrofit.buildService().sendData(jsonObject)
+                .enqueue(object : Callback<Model> {
+                    override fun onResponse(call: Call<Model>, response: Response<Model>) {
+
+                        binding.userName.text = null
+                        binding.rollNum.text = null
+                        binding.roomNum.text = null
+                        binding.phoneNum.text = null
+
+                        // progress bar invisible
+                        binding.pb.visibility = View.INVISIBLE
+
+                        Toast.makeText(this@SignUpActivity, "Data added to API", Toast.LENGTH_SHORT)
+                            .show()
+                        Log.d("data", response.toString())
+                    }
+
+                    override fun onFailure(call: Call<Model>, t: Throwable) {
+                        Log.d("Error", t.message.toString())
+                    }
+                })
+        } catch (e: JSONException) {
+            e.printStackTrace()
+        }
     }
+
 
     private fun validateUserName(): Boolean {
         val name: String = binding.userName.text.toString()
@@ -71,26 +116,26 @@ class SignUpActivity : AppCompatActivity() {
         }
     }
 
-    private fun validateEmail(): Boolean {
-        val email_e: String = binding.email.text.toString()
+//    private fun validateEmail(): Boolean {
+//        val email_e: String = binding.email.text.toString()
+//
+//        // check if email is empty
+//        return if (email_e.isEmpty()) {
+//            binding.email.error = "Email cannot be Empty"
+//            false
+//        } else if (emailvalid(email_e)) {
+//            binding.email.error = "Please enter a valid email"
+//            false
+//        } else {
+//            binding.email.error = null
+//            true
+//        } // check if email is empty
+//    }
+//    // end of validateEmail method
 
-        // check if email is empty
-        return if (email_e.isEmpty()) {
-            binding.email.error = "Email cannot be Empty"
-            false
-        } else if (emailvalid(email_e)) {
-            binding.email.error = "Please enter a valid email"
-            false
-        } else {
-            binding.email.error = null
-            true
-        } // check if email is empty
-    }
-    // end of validateEmail method
-
-    private fun emailvalid(email: String): Boolean {
-        return !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
-    }
+//    private fun emailvalid(email: String): Boolean {
+//        return !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
+//    }
 
     fun backToHome(view: View?) {
         startActivity(Intent(this@SignUpActivity, MainActivity::class.java))

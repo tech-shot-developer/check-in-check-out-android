@@ -2,7 +2,7 @@ package com.example.check_in_check_out_android.model
 
 import com.google.gson.annotations.SerializedName
 
-data class InfoModel(
+data class Model(
     @SerializedName("userName")
     var userName: String?,
 
