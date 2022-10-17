@@ -1,25 +1,23 @@
 package com.example.check_in_check_out_android.view
 
-
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
+import com.example.check_in_check_out_android.R
+import com.example.check_in_check_out_android.databinding.ActivityDashboardBinding
 import com.example.check_in_check_out_android.databinding.ActivityMainBinding
 
-class MainActivity : AppCompatActivity() {
-
-    lateinit var signupButton: Button
-    private lateinit var binding: ActivityMainBinding
-
+class Dashboard : AppCompatActivity() {
+    private lateinit var binding: ActivityDashboardBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
+        binding = ActivityDashboardBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        signupButton = binding.signup
-        signupButton.setOnClickListener {
-            val intent = Intent(this, Dashboard::class.java)
+
+        binding.profilebutton.setOnClickListener {
+            val intent = Intent(this, Profile::class.java)
             startActivity(intent)
         }
+
     }
 }
