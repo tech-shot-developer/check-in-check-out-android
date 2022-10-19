@@ -2,14 +2,13 @@ package com.example.check_in_check_out_android.view
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.check_in_check_out_android.api.RetrofitHelper
 import com.example.check_in_check_out_android.databinding.ActivitySignUpBinding
 import com.example.check_in_check_out_android.model.Model
-import org.json.JSONException
+import com.example.check_in_check_out_android.model.PostRequestResponseModel
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
@@ -26,6 +25,7 @@ class SignUpActivity : AppCompatActivity() {
         binding.signUpBtn.setOnClickListener {
             processFormField()
         }
+
     }
 
     private fun processFormField() {
@@ -37,17 +37,22 @@ class SignUpActivity : AppCompatActivity() {
         binding.pb.visibility = View.VISIBLE
 
         try {
-            val jsonObject = JSONObject()
-            jsonObject.put("name", binding.userName.text.toString())
-            jsonObject.put("rollNo", binding.rollNum.text.toString())
-            jsonObject.put("phone", binding.phoneNum.text.toString())
-            jsonObject.put("hostelName", binding.hostelNameSpinner.selectedItem.toString())
-            jsonObject.put("roomNumber", binding.roomNum.text.toString().toInt())
+
+            val model = Model(
+                binding.userName.text.toString(),
+                binding.rollNum.text.toString(),
+                binding.phoneNum.text.toString(),
+                binding.hostelNameSpinner.selectedItem.toString(),
+                binding.roomNum.text.toString()
+            )
 
             val retrofit = RetrofitHelper()
-            retrofit.buildService().sendData(jsonObject)
-                .enqueue(object : Callback<Model> {
-                    override fun onResponse(call: Call<Model>, response: Response<Model>) {
+            retrofit.buildService().sendData(model)
+                .enqueue(object : Callback<PostRequestResponseModel> {
+                    override fun onResponse(
+                        call: Call<PostRequestResponseModel>,
+                        response: Response<PostRequestResponseModel>
+                    ) {
 
                         binding.userName.text = null
                         binding.rollNum.text = null
@@ -57,25 +62,43 @@ class SignUpActivity : AppCompatActivity() {
                         // progress bar invisible
                         binding.pb.visibility = View.INVISIBLE
 
-                        Toast.makeText(this@SignUpActivity, "Data added to API", Toast.LENGTH_SHORT)
-                            .show()
-                        Log.d("data", response.toString())
+                        val myResponse = response.body()
+                        val myCode = response.code()
+                        val jsonObjectError = JSONObject(response.errorBody()!!.string())
+                        if (myCode == 200) {
+                            Toast.makeText(
+                                this@SignUpActivity,
+                                myResponse?.msg.toString(),
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        } else if (myCode == 400) {
+                            Toast.makeText(
+                                this@SignUpActivity,
+                                jsonObjectError.getString("msg"),
+                                Toast.LENGTH_LONG
+                            ).show()
+                        }
+
                     }
 
-                    override fun onFailure(call: Call<Model>, t: Throwable) {
-                        Log.d("Error", t.message.toString())
+                    override fun onFailure(call: Call<PostRequestResponseModel>, t: Throwable) {
+                        Toast.makeText(
+                            this@SignUpActivity,
+                            t.message.toString(),
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 })
-        } catch (e: JSONException) {
+        } catch (e: Exception) {
             e.printStackTrace()
         }
     }
 
-
     private fun validateUserName(): Boolean {
         val name: String = binding.userName.text.toString()
         return if (name.isEmpty()) {
-            binding.userName.error = "UserName is Required"
+            binding.userName.requestFocus()
+            binding.userName.error = "Username is Required"
             false
         } else {
             binding.userName.error = null
