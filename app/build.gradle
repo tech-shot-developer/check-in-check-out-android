@@ -48,4 +48,7 @@ dependencies {
     implementation 'de.hdodenhof:circleimageview:3.1.0'
     //okhttp
     implementation 'com.squareup.okhttp3:okhttp:3.14.9'
+    //QR code generator
+    implementation 'com.journeyapps:zxing-android-embedded:4.3.0'
+
 }
