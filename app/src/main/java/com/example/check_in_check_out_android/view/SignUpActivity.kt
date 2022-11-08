@@ -5,10 +5,10 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.example.check_in_check_out_android.api.RetrofitHelper
+import com.example.check_in_check_out_android.api.RetrofitClient
 import com.example.check_in_check_out_android.databinding.ActivitySignUpBinding
 import com.example.check_in_check_out_android.model.Model
-import com.example.check_in_check_out_android.model.PostRequestResponseModel
+import com.example.check_in_check_out_android.model.RequestResponseModel
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
@@ -46,12 +46,12 @@ class SignUpActivity : AppCompatActivity() {
                 binding.roomNum.text.toString()
             )
 
-            val retrofit = RetrofitHelper()
+            val retrofit = RetrofitClient()
             retrofit.buildService().sendData(model)
-                .enqueue(object : Callback<PostRequestResponseModel> {
+                .enqueue(object : Callback<RequestResponseModel> {
                     override fun onResponse(
-                        call: Call<PostRequestResponseModel>,
-                        response: Response<PostRequestResponseModel>
+                        call: Call<RequestResponseModel>,
+                        response: Response<RequestResponseModel>
                     ) {
 
                         binding.userName.text = null
@@ -81,7 +81,7 @@ class SignUpActivity : AppCompatActivity() {
 
                     }
 
-                    override fun onFailure(call: Call<PostRequestResponseModel>, t: Throwable) {
+                    override fun onFailure(call: Call<RequestResponseModel>, t: Throwable) {
                         Toast.makeText(
                             this@SignUpActivity,
                             t.message.toString(),

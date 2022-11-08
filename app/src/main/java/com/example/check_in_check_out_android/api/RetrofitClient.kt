@@ -6,7 +6,8 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class RetrofitHelper {
+
+class RetrofitClient {
 
     private var service: ApiInterface
 
@@ -26,4 +27,5 @@ class RetrofitHelper {
     fun buildService(): ApiInterface {
         return service
     }
+
 }

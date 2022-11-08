@@ -16,6 +16,7 @@ class SignInActivity : AppCompatActivity() {
 
     }
 
+
     fun backToHome(view: View?) {
         startActivity(Intent(this@SignInActivity, MainActivity::class.java))
         finish()

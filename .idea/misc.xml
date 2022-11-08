@@ -3,7 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/HP/AndroidStudioProjects/check-in-check-out-android/app/src/main/res/layout/activity_main.xml" value="0.1935185185185185" />
         <entry key="..\:/Users/HP/AndroidStudioProjects/check-in-check-out-android/app/src/main/res/layout/activity_sign_in.xml" value="0.196875" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/check-in-check-out-android/app/src/main/res/layout/activity_sign_up.xml" value="0.1935185185185185" />
         <entry key="..\:/Users/HP/AndroidStudioProjects/checkincheckoutandroid/app/src/main/res/drawable/input_text_field_styling.xml" value="0.1745" />
         <entry key="..\:/Users/HP/AndroidStudioProjects/checkincheckoutandroid/app/src/main/res/drawable/main_btn_styling.xml" value="0.185" />
         <entry key="..\:/Users/HP/AndroidStudioProjects/checkincheckoutandroid/app/src/main/res/layout/activity_main.xml" value="0.19384615384615383" />
