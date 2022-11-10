@@ -1,18 +1,21 @@
 package com.example.check_in_check_out_android.view
 
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import com.example.check_in_check_out_android.GeoLocation.geoLocationViewModel
 import com.example.check_in_check_out_android.databinding.ActivityMainBinding
+import com.example.check_in_check_out_android.util.constant.Companion.PREF_UNIQUE_ID
+import com.example.check_in_check_out_android.util.constant.Companion.machineID
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+
+    private val context = this@MainActivity
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,25 +23,29 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
 
-
-        // start of geolocation of device
-        val viewModel = ViewModelProvider(this)[geoLocationViewModel::class.java]
-        // single request
-        viewModel.getLoc()
-        viewModel.response.observe(this, Observer {
-            Log.d("MainActivity", it.toString())
-        })
-        // end of geolocation of device
-
-
-
-        binding.signup.setOnClickListener {
-            val intent = Intent(this@MainActivity, SignUpActivity::class.java)
-            startActivity(intent)
+        // start of machine id
+        if (machineID == null) {
+            val sharedPrefs: SharedPreferences = context.getSharedPreferences(
+                PREF_UNIQUE_ID, Context.MODE_PRIVATE
+            )
+            machineID = sharedPrefs.getString(PREF_UNIQUE_ID, null)
+            if (machineID == null) {
+                machineID = UUID.randomUUID().toString()
+                val editor: SharedPreferences.Editor = sharedPrefs.edit()
+                editor.putString(PREF_UNIQUE_ID, machineID)
+                editor.apply()
+            }
+            startActivity(Intent(this@MainActivity, SignUpActivity::class.java))
+        } else {
+            val signUp = SignUpActivity()
+            if (signUp.isOkFromSignUp()) {
+                startActivity(Intent(this@MainActivity, SignInActivity::class.java))
+            } else {
+                startActivity(Intent(this@MainActivity, SignUpActivity::class.java))
+            }
         }
+        // end of machine id
 
-        binding.signin.setOnClickListener {
-            startActivity(Intent(this@MainActivity, SignInActivity::class.java))
-        }
+
     }
 }

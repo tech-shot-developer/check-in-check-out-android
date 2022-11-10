@@ -1,21 +1,24 @@
 package com.example.check_in_check_out_android.view
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.check_in_check_out_android.api.RetrofitClient
 import com.example.check_in_check_out_android.databinding.ActivitySignUpBinding
-import com.example.check_in_check_out_android.model.Model
 import com.example.check_in_check_out_android.model.RequestResponseModel
+import com.example.check_in_check_out_android.model.SignUpModel
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class SignUpActivity : AppCompatActivity() {
+open class SignUpActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySignUpBinding
+    var clicked: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,6 +26,7 @@ class SignUpActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.signUpBtn.setOnClickListener {
+            clicked = true
             processFormField()
         }
 
@@ -38,7 +42,7 @@ class SignUpActivity : AppCompatActivity() {
 
         try {
 
-            val model = Model(
+            val signUpModel = SignUpModel(
                 binding.userName.text.toString(),
                 binding.rollNum.text.toString(),
                 binding.phoneNum.text.toString(),
@@ -47,7 +51,7 @@ class SignUpActivity : AppCompatActivity() {
             )
 
             val retrofit = RetrofitClient()
-            retrofit.buildService().sendData(model)
+            retrofit.buildService().sendData1(signUpModel)
                 .enqueue(object : Callback<RequestResponseModel> {
                     override fun onResponse(
                         call: Call<RequestResponseModel>,
@@ -71,6 +75,11 @@ class SignUpActivity : AppCompatActivity() {
                                 myResponse?.msg.toString(),
                                 Toast.LENGTH_SHORT
                             ).show()
+                            Handler().postDelayed({
+                                Toast.makeText(
+                                    this@SignUpActivity, "Sign In yourself", Toast.LENGTH_LONG
+                                ).show()
+                            }, 1000)
                         } else if (myCode == 400) {
                             Toast.makeText(
                                 this@SignUpActivity,
@@ -92,6 +101,14 @@ class SignUpActivity : AppCompatActivity() {
         } catch (e: Exception) {
             e.printStackTrace()
         }
+    }
+
+    open fun getInstance(): Context {
+        return this@SignUpActivity
+    }
+
+    open fun isOkFromSignUp(): Boolean {
+        return clicked
     }
 
     private fun validateUserName(): Boolean {
