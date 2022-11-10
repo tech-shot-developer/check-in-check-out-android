@@ -11,7 +11,7 @@
         android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/sign_up_activity"
+        android:text="Sign Up"
         android:textColor="@color/dark_royal_purle"
         android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -25,6 +25,7 @@
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:orientation="vertical"
         app:layout_constraintTop_toBottomOf="@+id/textView"
         tools:layout_editor_absoluteX="10dp">
@@ -40,20 +41,7 @@
             android:hint="Name"
             android:paddingLeft="10dp"
             android:textColor="@color/black"
-            android:textColorHint="@color/black" />
-
-        <EditText
-            android:id="@+id/email"
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="2dp"
-            android:layout_weight="1"
-            android:background="@drawable/input_text_field_styling"
-            android:hint="email"
-            android:paddingLeft="10dp"
-            android:textColor="@color/black"
-            android:textColorHint="@color/black" />
+            android:textColorHint="@color/grey" />
 
         <EditText
             android:id="@+id/roll_num"
@@ -66,7 +54,7 @@
             android:inputType="number"
             android:paddingLeft="10dp"
             android:textColor="@color/black"
-            android:textColorHint="@color/black" />
+            android:textColorHint="@color/grey" />
 
         <Spinner
             android:id="@+id/hostel_name_spinner"
@@ -96,7 +84,7 @@
                 android:inputType="number"
                 android:paddingLeft="10dp"
                 android:textColor="@color/black"
-                android:textColorHint="@color/black" />
+                android:textColorHint="@color/grey" />
 
             <EditText
                 android:id="@+id/phone_num"
@@ -109,7 +97,7 @@
                 android:inputType="number"
                 android:paddingLeft="10dp"
                 android:textColor="@color/black"
-                android:textColorHint="@color/black" />
+                android:textColorHint="@color/grey" />
 
         </LinearLayout>
 
@@ -151,5 +139,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout"
         app:layout_constraintVertical_bias="0.183" />
+
+    <ProgressBar
+        android:id="@+id/pb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

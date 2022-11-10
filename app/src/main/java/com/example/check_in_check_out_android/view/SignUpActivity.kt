@@ -1,16 +1,30 @@
 package com.example.check_in_check_out_android.view
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.view.View
+
 import android.widget.Button
 import android.widget.EditText
+
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.check_in_check_out_android.api.RetrofitClient
 import com.example.check_in_check_out_android.databinding.ActivitySignUpBinding
+import com.example.check_in_check_out_android.model.RequestResponseModel
+import com.example.check_in_check_out_android.model.SignUpModel
+import org.json.JSONObject
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
-class SignUpActivity : AppCompatActivity() {
+open class SignUpActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySignUpBinding
+
+    var clicked: Boolean = false
+
     private lateinit var user_name: EditText
     private lateinit var roll_num: EditText
     private lateinit var phone_num: EditText
@@ -29,37 +43,131 @@ class SignUpActivity : AppCompatActivity() {
         email = binding.email
         sign_up_btn = binding.signUpBtn
 
-        sign_up_btn.setOnClickListener {
-            val Name = user_name.text.toString().trim()
-            val Roll_number = roll_num.text.toString().trim()
-            val Phone_no = phone_num.text.toString().trim()
-            val Room_no = room_num.text.toString().trim()
-            val Email = email.text.toString().trim()
 
-            if (Name.isEmpty()) {
-                user_name.error = "User Name required"
-                return@setOnClickListener
-            } else if (emailvalid(Email)) {
-                email.error = "Invalid email"
-            } else if (Roll_number.length != 5) {
+        binding.signUpBtn.setOnClickListener {
+            clicked = true
+            processFormField()
+        }
 
-                roll_num.error = "Enter a roll number"
-                return@setOnClickListener
-            } else if (Room_no.length != 3) {
-                room_num.error = "Enter a valid room number"
-                return@setOnClickListener
-            } else if (Phone_no.length != 10) {
-                phone_num.error = "Enter a valid phone number"
-                return@setOnClickListener
-            } else {
-                Toast.makeText(this, "sign up complete", Toast.LENGTH_SHORT).show()
-            }
+    }
+
+    private fun processFormField() {
+        if (!validateUserName() || !validateRollNumber() || !validateRoomNumber() || !validatePhoneNumber()) {
+            return
+        }
+
+        // progress bar visible
+        binding.pb.visibility = View.VISIBLE
+
+        try {
+
+            val signUpModel = SignUpModel(
+                binding.userName.text.toString(),
+                binding.rollNum.text.toString(),
+                binding.phoneNum.text.toString(),
+                binding.hostelNameSpinner.selectedItem.toString(),
+                binding.roomNum.text.toString()
+            )
+
+            val retrofit = RetrofitClient()
+            retrofit.buildService().sendData1(signUpModel)
+                .enqueue(object : Callback<RequestResponseModel> {
+                    override fun onResponse(
+                        call: Call<RequestResponseModel>,
+                        response: Response<RequestResponseModel>
+                    ) {
+
+                        binding.userName.text = null
+                        binding.rollNum.text = null
+                        binding.roomNum.text = null
+                        binding.phoneNum.text = null
+
+                        // progress bar invisible
+                        binding.pb.visibility = View.INVISIBLE
+
+                        val myResponse = response.body()
+                        val myCode = response.code()
+                        val jsonObjectError = JSONObject(response.errorBody()!!.string())
+                        if (myCode == 200) {
+                            Toast.makeText(
+                                this@SignUpActivity,
+                                myResponse?.msg.toString(),
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            Handler().postDelayed({
+                                Toast.makeText(
+                                    this@SignUpActivity, "Sign In yourself", Toast.LENGTH_LONG
+                                ).show()
+                            }, 1000)
+                        } else if (myCode == 400) {
+                            Toast.makeText(
+                                this@SignUpActivity,
+                                jsonObjectError.getString("msg"),
+                                Toast.LENGTH_LONG
+                            ).show()
+                        }
+
+                    }
+
+                    override fun onFailure(call: Call<RequestResponseModel>, t: Throwable) {
+                        Toast.makeText(
+                            this@SignUpActivity,
+                            t.message.toString(),
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                })
+        } catch (e: Exception) {
+            e.printStackTrace()
         }
     }
+
+    open fun getInstance(): Context {
+        return this@SignUpActivity
+    }
+
+    open fun isOkFromSignUp(): Boolean {
+        return clicked
+    }
+
+    private fun validateUserName(): Boolean {
+        val name: String = binding.userName.text.toString()
+        return if (name.isEmpty()) {
+            binding.userName.requestFocus()
+            binding.userName.error = "Username is Required"
+            false
+        } else {
+            binding.userName.error = null
+            true
+        }
+    }
+
+
+//    private fun validateEmail(): Boolean {
+//        val email_e: String = binding.email.text.toString()
+//
+//        // check if email is empty
+//        return if (email_e.isEmpty()) {
+//            binding.email.error = "Email cannot be Empty"
+//            false
+//        } else if (emailvalid(email_e)) {
+//            binding.email.error = "Please enter a valid email"
+//            false
+//        } else {
+//            binding.email.error = null
+//            true
+//        } // check if email is empty
+//    }
+//    // end of validateEmail method
+
+//    private fun emailvalid(email: String): Boolean {
+//        return !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
+//    }
 
     fun emailvalid(email: String): Boolean {
         return !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
     }
+
 
     fun backToHome(view: View?) {
         startActivity(Intent(this@SignUpActivity, MainActivity::class.java))
