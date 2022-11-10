@@ -8,11 +8,6 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
-    Utils.getMACAddress("wlan0");
-    Utils.getMACAddress("eth0");
-    Utils.getIPAddress(true); // IPv4
-    Utils.getIPAddress(false); // IPv6
-
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -23,6 +18,27 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Checkincheckoutandroid"
         tools:targetApi="31">
+        <activity
+            android:name=".view.RecentDevice"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".view.Dashboard"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".view.Profile"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
         <activity
             android:name=".view.SignUpActivity"
             android:exported="true" />
@@ -37,7 +53,6 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
     </application>
 

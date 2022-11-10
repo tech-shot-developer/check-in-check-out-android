@@ -5,20 +5,27 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+
 import com.example.check_in_check_out_android.api.RetrofitClient2
 import com.example.check_in_check_out_android.databinding.ActivitySignInBinding
 import com.example.check_in_check_out_android.model.RequestResponseModel
 import com.example.check_in_check_out_android.model.SignInModel
 import org.json.JSONObject
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+
+import com.example.check_in_check_out_android.R
+import com.example.check_in_check_out_android.databinding.ActivitySignInBinding
+import okhttp3.Call
+import okhttp3.Callback
+import okhttp3.OkHttpClient
+import okhttp3.Response
+import java.io.IOException
 
 class SignInActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySignInBinding
-    private lateinit var pass: String
 
+    private lateinit var pass: String
+ 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySignInBinding.inflate(layoutInflater)
@@ -115,6 +122,12 @@ class SignInActivity : AppCompatActivity() {
 
     private fun emailvalid(email: String): Boolean {
         return !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
+        
+        binding.signInBtn.setOnClickListener{
+            //authenticate user here
+            goToDashboard()
+        }
+
     }
     // end of validateEmail method
 
@@ -127,4 +140,26 @@ class SignInActivity : AppCompatActivity() {
         startActivity(Intent(this@SignInActivity, SignUpActivity::class.java))
         finish()
     } // end of goToSignUpAct
+
+    fun goToDashboard() {
+
+        //fetching geolocation
+        val request = okhttp3.Request.Builder().url("https://ipwho.is/").build()
+
+        val client = OkHttpClient()
+        client.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+                println("Failed")
+            }
+
+            override fun onResponse(call: Call, response: Response) {
+                val body = response?.body()?.string()
+                println(body)
+            }
+        })
+
+
+        startActivity(Intent(this@SignInActivity, Dashboard::class.java))
+        finish()
+    } // end of goToDashboard
 }
