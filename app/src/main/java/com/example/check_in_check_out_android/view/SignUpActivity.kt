@@ -40,15 +40,12 @@ open class SignUpActivity : AppCompatActivity() {
         roll_num = binding.rollNum
         phone_num = binding.phoneNum
         room_num = binding.roomNum
-        email = binding.email
         sign_up_btn = binding.signUpBtn
-
 
         binding.signUpBtn.setOnClickListener {
             clicked = true
             processFormField()
         }
-
     }
 
     private fun processFormField() {
@@ -138,6 +135,39 @@ open class SignUpActivity : AppCompatActivity() {
             false
         } else {
             binding.userName.error = null
+            true
+        }
+    }
+
+    private fun validateRollNumber(): Boolean {
+        val rollNumber: String = binding.rollNum.text.toString()
+        return if (rollNumber.length != 5) {
+            binding.rollNum.error = "Please enter a valid roll number"
+            false
+        } else {
+            binding.rollNum.error = null
+            true
+        }
+    }
+
+    private fun validateRoomNumber(): Boolean {
+        val roomNumber: String = binding.roomNum.text.toString()
+        return if (roomNumber.length != 3) {
+            binding.roomNum.error = "Please enter a valid room number"
+            false
+        } else {
+            binding.roomNum.error = null
+            true
+        }
+    }
+
+    private fun validatePhoneNumber(): Boolean {
+        val phoneNumber: String = binding.phoneNum.text.toString()
+        return if (phoneNumber.length != 10) {
+            binding.phoneNum.error = "Please enter a valid phone number"
+            false
+        } else {
+            binding.phoneNum.error = null
             true
         }
     }
